@@ -1,0 +1,8 @@
+( ; example #0
+(LOAD 0)
+(JUMP end)
+(ADD (= 1))
+(WRITE 0)
+(HALT)
+(end HALT)
+)
