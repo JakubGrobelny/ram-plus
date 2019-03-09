@@ -73,7 +73,7 @@
     (cons program labels)))
 
 (define (fetch-arg instr)
-  (if (eq? (car instr) 'HALT)
+  (if (member (car instr) '(HALT RET))
       '()
       (second instr)))
  
@@ -157,23 +157,23 @@
                  (void)))
             ('PUSH
              (set! stack
-                   (cons (half-deref-arg arg memory labels)
+                   (cons (deref-arg arg memory labels)
                          stack)))
             ('POP
              (if (null? stack)
                  (error "Stack underflow!")
                  (begin
                    (hash-set! memory
-                              (half-deref-arg arg memory) (car stack))
+                              (half-deref-arg arg memory labels) (car stack))
                    (set! stack
                          (cdr stack)))))
             ('CALL
              (begin
                (set! stack (cons instr-ptr stack))
-               (set! instr-ptr (- arg 1))))
+               (set! instr-ptr (- (half-deref-arg arg memory labels) 1))))
             ('RET
              (begin
-               (set! instr-ptr (- (car stack) 1))
+               (set! instr-ptr (car stack))
                (set! stack (cdr stack)))))
           (loop code labels memory stack output-tape (+ 1 instr-ptr)))))
   (let ([output-tape '()]

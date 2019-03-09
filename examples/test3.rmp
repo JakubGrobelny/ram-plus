@@ -1,0 +1,33 @@
+; example of recursive function
+
+((READ 1)
+(READ 2)
+(CALL gcd)
+(WRITE 0)
+(HALT)
+
+; calculate gcd($1, $2), return in $0
+(gcd LOAD 1)
+(JZERO endGCD)
+(PUSH 1)
+(LOAD 2)
+(STORE 1)
+(POP 2)
+(PUSH 2)
+(CALL mod)
+(STORE 1)
+(POP 2)
+(CALL gcd)
+(endGCD LOAD 2)
+(RET)
+
+; calculate $1 mod $2, return in $0
+(mod LOAD 1)
+(DIV 2)
+(MULT 2)
+(STORE 2)
+(LOAD 1)
+(SUB 2)
+(RET))
+
+
