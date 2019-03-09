@@ -1,0 +1,3 @@
+((JUMP jmp)
+(WRITE (= 42))
+(jmp HALT))
