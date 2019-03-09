@@ -193,7 +193,8 @@
                 #:mode 'text)]
          [program (read file)]
          [executable (build-executable program)])
-    (printf "~a\n" (run executable (read)))
+    (printf "~a" "input: ")
+    (printf "output: ~a\n" (reverse (run executable (read))))
     (close-input-port file)))
 
 (main)

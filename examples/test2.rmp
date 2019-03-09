@@ -1,3 +1,4 @@
+; print all multiples of 2018 in range [a; b]
 ((READ 1)
 (READ 2)
 (LOAD 1)
