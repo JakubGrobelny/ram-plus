@@ -140,20 +140,20 @@
             ('LOAD
              (hash-set! memory
                         0
-                        (half-deref-arg arg memory labels)))
+                        (hash-ref! memory (half-deref-arg arg memory labels) 0)))
             ('JUMP
              (set! instr-ptr (- (half-deref-arg arg memory labels) 1)))
             ('JZERO
              (if (= 0 (hash-ref! memory 0 0))
-                 (set! instr-ptr (- arg 1))
+                 (set! instr-ptr (- (half-deref-arg arg memory labels) 1))
                  (void)))
             ('JGTZ
-             (if (> 0 (hash-ref! memory 0 0))
-                 (set! instr-ptr (- arg 1))
+             (if (< 0 (hash-ref! memory 0 0))
+                 (set! instr-ptr (- (half-deref-arg arg memory labels) 1))
                  (void)))
             ('JLTZ
-             (if (< 0 (hash-ref! memory 0 0))
-                 (set! instr-ptr (- arg 1))
+             (if (> 0 (hash-ref! memory 0 0))
+                 (set! instr-ptr (- (half-deref-arg arg memory labels) 1))
                  (void)))
             ('PUSH
              (set! stack
